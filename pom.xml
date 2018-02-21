@@ -6,13 +6,42 @@
 
   <groupId>com.github.chajath</groupId>
   <artifactId>guice-aqueduct</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
+  <name>Guice Aqueduct</name>
+  <description>Guice Aqueduct is a Guice binder to configure Chained instances to form a pipeline</description>
+  <url>https://github.com/google/guice-aqueduct</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+
+  <scm>
+    <url>https://github.com/google/guice-aqueduct</url>
+  </scm>
+
+  <developers>
+    <developer>
+      <email>chajath@gmail.com</email>
+      <name>In-Ho Yi</name>
+      <url>https://github.com/chajath</url>
+      <id>chajath</id>
+    </developer>
+  </developers>
 
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
   </distributionManagement>
 
   <build>
@@ -58,6 +87,20 @@
             <id>attach-javadocs</id>
             <goals>
               <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
             </goals>
           </execution>
         </executions>
