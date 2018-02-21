@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package guice_aqueduct;
+package com.github.chajath.guice.aqueduct;
 
 import static com.google.common.truth.Truth.assertThat;
 

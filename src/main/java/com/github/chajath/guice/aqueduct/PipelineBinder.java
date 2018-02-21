@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package guice_aqueduct;
+package com.github.chajath.guice.aqueduct;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -125,7 +125,7 @@ public class PipelineBinder<T extends Chained<T>> {
 
   @AutoAnnotation
   private static Element element(int uniqueId) {
-    return new guice_aqueduct.AutoAnnotation_PipelineBinder_element(uniqueId);
+    return new AutoAnnotation_PipelineBinder_element(uniqueId);
   }
 
   public LinkedBindingBuilder<T> addBinding() {
