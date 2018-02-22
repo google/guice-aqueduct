@@ -19,7 +19,8 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import com.google.auto.value.AutoAnnotation;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import com.google.inject.AbstractModule;
 import com.google.inject.Binder;
@@ -28,6 +29,7 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import com.google.inject.binder.LinkedBindingBuilder;
+import java.lang.annotation.Annotation;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.util.ArrayList;
@@ -121,12 +123,53 @@ public class PipelineBinder<T extends Chained<T>> {
     int uniqueId();
   }
 
-  private static final AtomicInteger nextUniqueId = new AtomicInteger(1);
+  static final class RealElement implements Element {
+    private final int uniqueId;
 
-  @AutoAnnotation
-  private static Element element(int uniqueId) {
-    return new AutoAnnotation_PipelineBinder_element(uniqueId);
+    RealElement(int uniqueId) {
+      this.uniqueId = uniqueId;
+    }
+
+    @Override
+    public String toString() {
+      return MoreObjects.toStringHelper(this)
+          .add("uniqueId", uniqueId)
+          .toString();
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+      return Element.class;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+      RealElement that = (RealElement) o;
+      return uniqueId == that.uniqueId;
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hashCode(uniqueId);
+    }
+
+    @Override
+    public int uniqueId() {
+      return this.uniqueId;
+    }
   }
+
+  private static Element element(int uniqueId) {
+    return new RealElement(uniqueId);
+  }
+
+  private static final AtomicInteger nextUniqueId = new AtomicInteger(1);
 
   public LinkedBindingBuilder<T> addBinding() {
     Element newElement = element(nextUniqueId.getAndIncrement());
