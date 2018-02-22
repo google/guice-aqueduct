@@ -6,7 +6,7 @@
 
   <groupId>com.github.chajath</groupId>
   <artifactId>guice-aqueduct</artifactId>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2</version>
   <name>Guice Aqueduct</name>
   <description>Guice Aqueduct is a Guice binder to configure Chained instances to form a pipeline</description>
   <url>https://github.com/google/guice-aqueduct</url>
